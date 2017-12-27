@@ -1,0 +1,29 @@
+<!doctype HTML>
+<html>
+    <head>
+        <meta charset="euc-kr" />
+        <title>cookie</title>
+        <style>
+            button {
+                height: 100px;
+                width: 100px
+            }
+        </style>
+        <script>
+            var cnt = 0;
+            function cc() {
+                cnt = cnt + 1;
+                document.getElementsByTagName("span")[0].textContent = cnt+'  cookie';
+            }
+        </script>
+    </head>
+    <body>
+        <span>
+            0 cookie
+        </span>
+        <br>
+        <button onclick="cc()">
+            우왕
+        </button>
+    </body>
+</html>
