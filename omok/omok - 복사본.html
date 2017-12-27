@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <mect charset="euc-kr">
+    <title>omok</title>
+    <style>
+        td {
+            border: 1px solid black;
+            border-radius: 30px;
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+    <script>
+        function cc(x,y) {
+            var xx=x*19+y,i,j,k,t1=0,t2=0,t3=0,t4=0,f=0;
+            if (document.getElementById(xx).style.backgroundColor != "red" && document.getElementById(xx).style.backgroundColor != "black"){
+                if (t == 0) document.getElementById(xx).style.backgroundColor = "red"; else document.getElementById(xx).style.backgroundColor = "black";
+                setTimeout(function () {
+                    ma[x][y] = t;
+                    for (i = 0; i < 19; i++) {
+                        for (j = 0; j < 19; j++) {
+                            if (f == 1) break;
+                            t1 = 0; t2 = 0; t3 = 0; t4 = 0;
+                            if (j != 0 && ma[i][j - 1] == t) t1 = 1;
+                            for (k = 0; k <= 4; k++) {
+                                if (j + k >= 19) { t1 = 1; break; }
+                                if (ma[i][j + k] != t) t1 = 1;
+                            }
+                            if (j + k < 19 && ma[i][j + k] == t) t1 = 1;
+                            if (i != 0 && ma[i - 1][j] == t) t2 = 1;
+                            for (k = 0; k <= 4; k++) {
+                                if (i + k >= 19) { t2 = 1; break; }
+                                if (ma[i + k][j] != t) t2 = 1;
+                            }
+                            if (i + k < 19 && ma[i + k][j] == t) t2 = 1;
+                            if (i != 0 && j != 0 && ma[i - 1][j - 1] == t) t3 = 1;
+                            for (k = 0; k <= 4; k++) {
+                                if (i + k >= 19 || j + k >= 19) { t3 = 1; break; }
+                                if (ma[i + k][j + k] != t) t3 = 1;
+                            }
+                            if (i + k < 19 && j + k < 19 && ma[i + k][j + k] == t) t3 = 1;
+                            if (i != 0 && j != 18 && ma[i - 1][j + 1] == t) t4 = 1;
+                            for (k = 0; k <= 4; k++) {
+                                if (i + k >= 19 || j - k < 0) { t4 = 1; break; }
+                                if (ma[i + k][j - k] != t) t4 = 1;
+                            }
+                            if (i + k < 19 && j - k >= 0 && ma[i + k][j - k] == t) t4 = 1;
+                            if (t1 == 0 || t2 == 0 || t3 == 0 || t4 == 0) { f = 1; alert("player " + t + "win!!"); }
+                        }
+                    }
+                }, 30);
+                t=1-t;
+            }
+        }
+    </script>
+</head>
+<body>
+    <table id="board">
+    </table>
+</body>
+<script>
+    var i, j, x = "", t = 0, ma=new Array(19);
+    for (i = 0; i < 19; i++) {
+        x = x + "<tr>"
+        ma[i] = new Array(19);
+        for (j = 0; j < 19; j++) {
+            x = x + '<td id="' + (i * 19 + j) + '"onclick="cc(' + i + ',' + j + ')"></td>'
+            ma[i][j] = 2;
+        }
+        x=x+"</tr>"
+    }
+    document.getElementById("board").innerHTML=x;
+</script>
+</html>
