@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="euc-kr"/>
+	<title>tetris</title>
+	<style>
+		.red{
+			background-color: red;
+		}
+		.blue{
+			background-color: blue;
+		}
+		.black{
+			background-color: black;
+		}
+		.white{
+			background-color: white;
+		}
+		.green{
+			background-color: green;
+		}
+		.purple{
+			background-color: purple;
+		}
+		.yellow{
+			background-color: yellow;
+		}
+		.brown{
+			background-color: blue;
+		}
+		#board {
+			border: 1px solid black;
+			position: fixed;
+			top: 100px;
+			left: 150px;
+		}
+		#board tr td {
+			border: 1px solid white;
+			width: 20px;
+			height: 20px;
+		}
+		#mi tr td{
+			border: 1px solid white;
+			width: 20px;
+			height: 20px;
+		}
+		#mi{
+			border: 1px solid black;
+			position: fixed;
+			top: 100px;
+			left: 30px;
+		}
+	</style>
+	<script>
+		var xx=0,t=0,st=[],d=Math.floor(Math.random()*7),fl=0,bst=[],s,e;
+		function ss(){
+			var i,j;
+			for(i=0;i<4;i++){
+				for(j=0;j<4;j++){
+					if(st[d][i][j]!=0){
+						var xii="m"+(i*10+j);
+						if(st[d][i][j]==0) document.getElementById(xii).className="white";
+						if(st[d][i][j]==1) document.getElementById(xii).className="red";
+						if(st[d][i][j]==2) document.getElementById(xii).className="blue";
+						if(st[d][i][j]==3) document.getElementById(xii).className="green";
+						if(st[d][i][j]==4) document.getElementById(xii).className="black";
+						if(st[d][i][j]==5) document.getElementById(xii).className="purple";
+						if(st[d][i][j]==6) document.getElementById(xii).className="yellow";
+						if(st[d][i][j]==7) document.getElementById(xii).className="brown";
+					}
+				}
+			}
+		}
+		function db(){
+			var i,j;
+			for(i=0;i<20;i++){
+				for(j=0;j<10;j++){
+					if(bst[i][j]!=0){
+						var xii=(i*100+j);
+						if(bst[i][j]==0) {document.getElementById(xii).className="white"; continue;}
+						if(bst[i][j]%7==1) document.getElementById(xii).className="red";
+						if(bst[i][j]%7==2) document.getElementById(xii).className="blue";
+						if(bst[i][j]%7==3) document.getElementById(xii).className="green";
+						if(bst[i][j]%7==4) document.getElementById(xii).className="black";
+						if(bst[i][j]%7==5) document.getElementById(xii).className="purple";
+						if(bst[i][j]%7==6) document.getElementById(xii).className="yellow";
+						if(bst[i][j]%7==0) document.getElementById(xii).className="brown";
+					}
+				}
+			}
+		}
+		function fallst(){
+			var i,j,ch=0;
+			for(i=3;i>=0;i--){
+				for(j=0;j<=3;j++){
+					if(st[d][i][j]==0) continue; else break;
+				}
+				if(j==4) continue;
+				if(d==0){bst[0][3]=8;bst[0][4]=8;bst[0][5]=8;bst[0][6]=8;s=0; e=3;}
+				if(d==1){bst[0][4]=9;bst[0][5]=9;bst[0][6]=9;s=0;e=4;}
+				if(d==2){bst[0][4]=10;bst[0][5]=10;s=0;e=4;}
+				if(d==3){bst[0][4]=11;bst[0][5]=11;s=0;e=4;}
+				if(d==4){bst[0][4]=12;bst[0][5]=12;s=0;e=4;}
+				if(d==5){bst[0][4]=13;bst[0][5]=13;s=0;e=4;}
+				if(d==6){bst[0][4]=14;bst[0][5]=14;s=0;e=4;}
+				break;
+			}
+			db();
+			fl=2;
+			xx=t;
+		}
+		function init(){
+			var i,j,k;
+			for(i=0;i<7;i++){
+				st.push([]);
+				for(j=0;j<4;j++){
+					st[i].push([]);
+					for(k=0;k<4;k++){
+						st[i][j].push(0);
+					}
+				}
+			}
+			for(i=0;i<20;i++){
+				bst.push([]);
+				for(j=0;j<10;j++){
+					bst[i].push(0);
+				}
+			}
+			st[0][1][0]=1;
+			st[0][1][1]=1;
+			st[0][1][2]=1;
+			st[0][1][3]=1;
+			st[1][2][0]=2;
+			st[1][2][1]=2;
+			st[1][2][2]=2;
+			st[1][1][1]=2;
+			st[2][0][1]=3;
+			st[2][1][1]=3;
+			st[2][2][1]=3;
+			st[2][2][2]=3;
+			st[3][0][2]=4;
+			st[3][1][2]=4;
+			st[3][2][2]=4;
+			st[3][2][1]=4;
+			st[4][1][1]=5;
+			st[4][1][2]=5;
+			st[4][2][1]=5;
+			st[4][2][2]=5;
+			st[5][2][0]=6;
+			st[5][2][1]=6;
+			st[5][1][1]=6;
+			st[5][1][2]=6;
+			st[6][1][0]=7;
+			st[6][1][1]=7;
+			st[6][2][1]=7;
+			st[6][2][2]=7;
+			ss();
+			fl=1;
+			fallst();
+		}
+		function fall(){
+			if(d==1)
+			console.log(xx);
+		}
+		function down(){
+			t++;
+			if(t-xx>=60){
+				xx=t;
+				if(fl==2) fall();
+			}
+			window.requestAnimationFrame(down);
+		}
+	</script>
+</head>
+<body>
+	<table id="board" cellspacing="0">
+	</table>
+	<table id="mi" cellspacing="0">
+	</table>
+</body>
+<script>
+	var i,j,x="";
+	for(i=0;i<20;i++){
+		x=x+"<tr>";
+		for(j=0;j<10;j++){
+			x=x+'<td id="'+(i*100+j)+'"></td>';
+		}
+		x=x+"</tr>";
+	}
+	document.getElementById("board").innerHTML=x;
+	x="";
+	for(i=0;i<4;i++){
+		x=x+"<tr>";
+		for(j=0;j<4;j++){
+			x=x+'<td id="m'+(i*10+j)+'"></td>';
+		}
+		x=x+"</tr>";
+	}
+	document.getElementById("mi").innerHTML=x;
+	init();
+	down();
+</script>
+</html>
